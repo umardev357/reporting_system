@@ -308,6 +308,7 @@ class MonthContainerDetailView(generic.DetailView):
     model = MonthContainer
 #This is where you were. You were working on getting the month container jobs to behave like my jobs
 
+
 class CombinedMonthJobsView(LoginRequiredMixin, ExportMixin, SingleTableView, generic.ListView):
     model = Job
     template_name = 'mtcereports/combined_month_jobs.html'
@@ -318,7 +319,7 @@ class CombinedMonthJobsView(LoginRequiredMixin, ExportMixin, SingleTableView, ge
 
     def get_queryset(self):
         year = self.kwargs['year']
-        month = self.kwargs['month']
+        month = int(self.kwargs['month'])
         return Job.objects.filter(date__year=year, date__month=month)
 
     def get_context_data(self, **kwargs):
@@ -327,37 +328,26 @@ class CombinedMonthJobsView(LoginRequiredMixin, ExportMixin, SingleTableView, ge
         month = self.kwargs['month']
         name_of_month = month_name[int(month)]
         context['year'] = year
-        context['month'] = name_of_month
+        context['month'] = month
         return context
 
 
 import tablib
 
-'''MONTH_MAPPING = {
-    'January': 1,
-    'February': 2,
-    'March': 3,
-    'April': 4,
-    'May': 5,
-    'June': 6,
-    'July': 7,
-    'August': 8,
-    'September': 9,
-    'October': 10,
-    'November': 11,
-    'December': 12,
-    
-}'''
+
 
 class CombinedMonthJobsExportView(View):
     def get(self, request, year, month):
+
+        print(f"Year: {year}, Month: {month}")
+
         jobs = Job.objects.filter(date__year=year, date__month=month)
 
         dataset = tablib.Dataset()
         dataset.headers = ['Title', 'Author', 'Date', 'Region', '...']
 
         for job in jobs:
-            dataset.append([job.title, job.author.username, job.date, job.region, '...'])
+            dataset.append([job.title, job.author, job.date, job.region, '...'])
 
         response = HttpResponse(dataset.xlsx, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         response['Content-Disposition'] = f'attachment; filename=combined_month_jobs_{year}_{month}.xlsx'
