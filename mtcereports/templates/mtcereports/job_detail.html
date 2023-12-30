@@ -1,0 +1,39 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="list-group">
+    <h1 class="h3 mt-4 mb-4 list-group-item list-group-item-primary">Job Detail</h1>
+  </div>
+
+  {% if messages %}
+  <div class="alert alert-dismissible fade show" role="alert">
+    <ul class="list-unstyled">
+      {% for message in messages %}
+        <li {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+      {% endfor %}
+    </ul>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+{% endif %}
+
+  <h3>Title: {{ job.title }}</h3>
+
+  <p><strong>Date:</strong> {{ job.date }}</p>
+  <p><strong>Region:</strong> {{ job.get_region_display }}</p>
+  <p><strong>Substation:</strong> {{ job.substation }}</p>
+  <p><strong>Description:</strong> {{ job.job_description }}</p>
+  <p><strong>Equipment:</strong> {{ job.equipment }}</p>
+  <p><strong>Job Category:</strong> {{ job.job_category }}</p>
+  <p><strong>Job Status:</strong> {{ job.get_job_status_display }}</p>
+  <p><strong>Personnel:</strong> {{ job.job_personnel }}</p>
+  <p><strong>Remarks:</strong> {{ job.remarks }}</p>
+  
+  <div class="d-flex gap-2" style="margin-top: 50px">
+    <a href="{% url 'job-update' job.id %}" class="btn btn-primary">Update job </a>
+    <a href="{% url 'job-delete' job.id %}" class="btn btn-danger">Delete job </a>
+  </div>
+    
+  
+
+{% endblock %}

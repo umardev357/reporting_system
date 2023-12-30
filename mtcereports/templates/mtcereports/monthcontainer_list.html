@@ -1,0 +1,30 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Monthly Reports</h1>
+  
+    {% if monthcontainer_list %}
+    <ul>
+      {% for monthcontainer in monthcontainer_list %}
+      <li>
+        <a href = "{{ monthcontainer.get_absolute_url }}" >
+          {{ monthcontainer.year_name }} {{ monthcontainer.get_month_name_display }} Reports
+        </a> Jobs {{ monthcontainer.author}}
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>There are no monthly report containers created.</p>
+    {% endif %}
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+{% endblock %}
+
+{# "{{ monthcontainer.get_absolute_url }}" #}

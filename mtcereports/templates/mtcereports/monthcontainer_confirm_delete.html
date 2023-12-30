@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+  {% block content %}
+    <div class="container">
+      <div class="list-group">
+        <h1 class="h3 mt-4 mb-4 list-group-item list-group-item-danger">Delete Report Folder</h1>
+      </div>
+  
+      <p class="text-danger">Are you sure you want to delete the folder: {{ monthcontainer.get_month_name_display }} {{ monthcontainer.year_name }}?</p>
+  
+      <form action="" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger" value="Yes, delete." />
+        <a href="{% url 'my-monthcontainer-list' %}" class="btn btn-secondary">Cancel</a>
+      </form>
+  
+    </div>
+  {% endblock %}

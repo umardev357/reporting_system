@@ -1,0 +1,41 @@
+/* Side bar css additions */
+
+  body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  
+  .container-fluid {
+    flex: 1;
+    display: flex;
+  }
+  
+  .col-sm-2 {
+    background-color: #f8f9fa; /* Change the background color as needed */
+    padding: 20px;
+    height: 100%; /* Sidebar takes up full height of container */
+  }
+  
+  .col-sm-10 {
+    padding: 20px;
+    flex: 1; /* Adjust the flex property */
+  }
+  
+  .navbar {
+    margin-left: 0; /* Remove the default margin */
+    width: 100%; /* Navbar takes up full width */
+  }
+  
+  /* Custom CSS to set a maximum width for the datepicker input */
+.datepicker {
+  max-width: 250px; /* Set the maximum width as needed */
+  width: 100%; /* Make it fill the available width */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+  .datepicker {
+      max-width: 100%; /* Full width on smaller screens */
+  }
+}

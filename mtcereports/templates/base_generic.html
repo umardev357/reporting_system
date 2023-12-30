@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% block title %}
+      <title>Maintenance Reporting System</title>
+    {% endblock %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
+    crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+
+    <!--<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+    <style>
+      /* Custom CSS */
+.right-align-button {
+    text-align: left;
+}
+
+      /* Custom style to make the div full height only on desktop screens */
+      @media (min-width: 992px) {
+            .full-height-desktop {
+                height: 100vh; /* 100% of the viewport height */
+            }
+        }
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+      .b-example-divider {
+        width: 100%;
+        height: 3rem;
+        background-color: rgba(0, 0, 0, .1);
+        border: solid rgba(0, 0, 0, .15);
+        border-width: 1px 0;
+        box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+      }
+
+      .b-example-vr {
+        flex-shrink: 0;
+        width: 1.5rem;
+        height: 100vh;
+      }
+
+      .bi {
+        vertical-align: -.125em;
+        fill: currentColor;
+      }
+
+      .nav-scroller {
+        position: relative;
+        z-index: 2;
+        height: 2.75rem;
+        overflow-y: hidden;
+      }
+
+      .nav-scroller .nav {
+        display: flex;
+        flex-wrap: nowrap;
+        padding-bottom: 1rem;
+        margin-top: -1px;
+        overflow-x: auto;
+        text-align: center;
+        white-space: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .btn-bd-primary {
+        --bd-violet-bg: #712cf9;
+        --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+
+        --bs-btn-font-weight: 600;
+        --bs-btn-color: var(--bs-white);
+        --bs-btn-bg: var(--bd-violet-bg);
+        --bs-btn-border-color: var(--bd-violet-bg);
+        --bs-btn-hover-color: var(--bs-white);
+        --bs-btn-hover-bg: #6528e0;
+        --bs-btn-hover-border-color: #6528e0;
+        --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+        --bs-btn-active-color: var(--bs-btn-hover-color);
+        --bs-btn-active-bg: #5a23c8;
+        --bs-btn-active-border-color: #5a23c8;
+      }
+
+      .bd-mode-toggle {
+        z-index: 1500;
+      }
+
+      .bd-mode-toggle .dropdown-menu .active .bi {
+        display: block !important;
+      }
+    </style>
+
+    <!-- Add additional CSS in static file -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}" />
+  </head>
+  
+
+  <body>
+    
+
+    <script src="https://kit.fontawesome.com/87cd5660a4.js" crossorigin="anonymous"></script>
+
+    <!--<header class="navbar sticky-top bg-primary flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-white" href="#">P&C Reporting System</a>
+    
+      <ul class="navbar-nav flex-row d-md-none">
+        <li class="nav-item text-nowrap">
+          <!--<button class="nav-link px-3 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle search">
+            Search
+          </button>
+        </li>
+        <li class="nav-item text-nowrap">
+          <button class="nav-link px-3 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            Menu
+          </button>
+        </li>
+      </ul>
+    
+      <div id="navbarSearch" class="navbar-search w-100 collapse">
+        <input class="form-control w-100 rounded-0 border-0" type="text" placeholder="Search" aria-label="Search">
+      </div>
+
+    </header>-->
+
+    <header class="navbar sticky-top bg-primary flex-md-nowrap p-0 shadow" data-bs-theme="dark">
+      <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6 text-" href="#">P&C Reporting System</a>
+  
+      <!-- Add a button to toggle the sidebar on smaller screens -->
+      <button class="navbar-toggler d-md-none" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+
+     
+
+      <div class="ml-auto me-2">
+        <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+    </div>
+  </header>
+
+    <div class="container-fluid">
+      <div class="row " >
+        <!--SIDEBAR 2--
+        <nav class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+          <div class="position-sticky">
+              <!-- Sidebar content goes here --
+              <ul class="nav flex-column">
+                  <li class="nav-item">
+                      <a class="nav-link {% if request.path == 'index' %}active{% endif %}" href="{% url 'index' %}">Link 1</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link {% if request.path == 'index' %}active{% endif %}" href="{% url 'my-monthcontainer-list' %}">Link 2</a>
+                  </li>
+                  <!-- Add more sidebar links as needed --
+              </ul>
+          </div>
+      </nav>-->
+        <!----------SIDEBAR-----BEGIN------->     
+        <div class="col-md-3 col-lg-2 p-0 bg-body-tertiary position-fixed" style="z-index: 1030;">
+          <div class="offcanvas-md offcanvas-end bg-body-tertiary full-height-desktop" tabindex="-1" id="sidebarMenu" aria-labelledby="sidebarMenuLabel">
+            
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="sidebarMenuLabel">P&C Reporting</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebarMenu" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body d-md-flex flex-column p-0 pt-lg-3 overflow-y-auto">
+
+
+              {% if user.is_authenticated %}
+              <ul class="nav flex-column nav-pills text-center"> <!-- 1. Center the navigation links -->
+                
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                  <span>Training</span>
+                  <a class="link-secondary" href="#" aria-label="Add a new report">
+                    <svg class="bi"><use xlink:href="#plus-circle"/></svg>
+                  </a>
+                </h6>
+
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2 {% if request.path == 'index' %}active{% endif %}"   aria-current="page" href="{% url 'index' %}">
+                    <i class="fa-solid fa-book"></i>Quick Guide
+                  </a>
+                </li>
+
+                {% if perms.mtcereports.can_extract %}
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                  <span>Manager Actions</span>
+                  <a class="link-secondary" href="#" aria-label="Add a new report">
+                    <svg class="bi"><use xlink:href="#plus-circle"/></svg>
+                  </a>
+                </h6>
+
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="{%url 'all-jobs'%}">
+                  <i class="fa-solid fa-file"></i>All Jobs
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="{%url 'all-monthcontainer-list'%}">
+                  <i class="fa-solid fa-file"></i>Regional Reports
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link d-flex align-items-center gap-2" href="{%url 'combined-monthcontainer-list'%}">
+                  <i class="fa-solid fa-file"></i> Monthly Reports
+                </a>
+              </li>
+
+              </li>
+                {% endif %}
+
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                  <span>Overview</span>
+                  <a class="link-secondary" href="#" aria-label="Add a new report">
+                    <svg class="bi"><use xlink:href="#plus-circle"/></svg>
+                  </a>
+                </h6>
+
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2 {% if request.path == 'my-monthcontainer-list' %}active{% endif %}"  href="{% url 'my-monthcontainer-list' %}">
+                    <i class="fa-solid fa-folder"></i>My Monthly Reports
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="{%url 'my-jobs'%}">
+                    <i class="fa-solid fa-file"></i>My Jobs
+                  </a>
+                </li>
+                
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                  <span>New Actions</span>
+                  <a class="link-secondary" href="#" aria-label="Add a new report">
+                    <svg class="bi"><use href="#plus-circle"/></svg>
+                  </a>
+                </h6>
+                
+                  <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{% url 'monthcontainer-create' %}">
+                      <i class="fa-regular fa-folder"></i>New Report Folder
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{%url 'job-create'%}">
+                      <i class="fa-regular fa-file"></i>New Job Entry
+                    </a>
+                  </li>
+  
+                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                  <span>Authentication</span>
+                  <a class="link-secondary" href="#" aria-label="Add a new report">
+                    <svg class="bi"><use xlink:href="#plus-circle"/></svg>
+                  </a>
+                </h6>
+                
+                  <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{% url 'logout' %}?next={{ request.path }}">
+                      <i class="fa-solid fa-right-from-bracket"></i>Logout
+                    </a>
+                  </li>
+                </ul>
+
+                <ul class="nav flex-column nav-pills text-center">
+
+                  <hr class="my-3">
+
+                  <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-body-secondary text-uppercase">
+                    <span>Logged In as</span>
+                    <a class="link-secondary" href="#" aria-label="Add a new report">
+                      <svg class="bi"><use xlink:href="#plus-circle"/></svg>
+                    </a>
+                  </h6>
+
+                  <li class="nav-item">
+                    <a class="nav-link d-flex align-items-center gap-2" href="{% url 'logout' %}?next={{ request.path }}">
+                      <span class="fw-bold badge bg-primary">{{ user.username }}</span>
+                    </a>
+                  </li>
+                </ul>
+
+                 
+
+               
+
+                {% else %}
+              <hr class="my-3">
+    
+              <ul class="nav flex-column mb-auto">
+                <li class="nav-item">
+                  <a class="nav-link d-flex align-items-center gap-2" href="{% url 'login' %}?next={{ request.path }}">
+                    <svg class="bi"><use xlink:href=/></svg>
+                    Login
+                  </a>
+                </li>
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <!----------SIDEBAR-----END------->  
+    
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+          {% block content %}
+
+          {% endblock %}
+        </main>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js" 
+    integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" 
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" 
+    integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+  
+  
+  </body>
+
+  
+</html>
+

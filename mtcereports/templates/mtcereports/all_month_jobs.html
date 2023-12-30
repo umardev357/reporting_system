@@ -1,0 +1,18 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="list-group">
+            <h1 class="h3 mt-4 mb-4 list-group-item list-group-item-primary">
+                {{ month }} {{ year }} Report
+            </h1>
+        </div>
+
+        {% if job_list %}
+            {% load render_table from django_tables2 %}
+            {% render_table table %}
+        {% else %}
+            <p class="lead">There are no jobs for this month.</p>
+        {% endif %}
+    </div>
+{% endblock %}

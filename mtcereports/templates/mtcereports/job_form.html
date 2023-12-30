@@ -1,0 +1,147 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+      <div class="list-group ">
+        <h1 class="h3 mt-4 mb-4 list-group-item list-group-item-primary ">Create New Job Entry</h1>
+      </div >
+  
+   
+          <form action="" method="post" class="needs-validation" novalidate >
+            {% csrf_token %}
+
+            <div class="mb-3 row">
+              <label for="{{ form.title.id_for_label }}" class="col-sm-2 col-form-label">Job Title:</label>
+              <div class="col-sm-10">
+                <textarea name="{{ form.title.name }}" cols="40" rows="1" maxlength="500" required="" id="{{ form.title.id_for_label }}"></textarea>
+              </div>
+            </div>
+
+            <style>
+              /* Custom CSS to set the width of the datepicker input */
+              div.mb-3.row .datepicker {
+                  max-width: 200px;
+                  width: 100%;
+              }
+          
+              /* Media query for smaller screens */
+              @media (max-width: 768px) {
+                  div.mb-3.row .datepicker {
+                      max-width: 100%; /* Full width on smaller screens */
+                  }
+              }
+          </style>
+          
+          
+            <div class="mb-3 row ">
+              <label for="{{ form.date.id_for_label }}" class="col-sm-2 col-form-label">Date:</label>
+              <div class="col-sm-10 datepicker" >
+                  {{ form.date }}
+              </div>
+          </div>
+      
+          <script>
+              document.addEventListener("DOMContentLoaded", function () {
+                  var dateInputs = document.querySelectorAll('.datepicker');
+                  dateInputs.forEach(function (input) {
+                      new Datepicker(input, {
+                          format: 'yyyy-mm-dd',
+                          autoclose: true,
+                      });
+                  });
+              });
+          </script>
+
+            <div class="mb-3 row">
+              <label for="{{ form.region.id_for_label }}" class="col-sm-2 col-form-label">Region:</label>
+              <div class="col-sm-10">
+                {{ form.region }}
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="{{ form.substation.id_for_label }}" class="col-sm-2 col-form-label">Substation:</label>
+              <div class="col-sm-10">
+                {{ form.substation }}
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="{{ form.job_description.id_for_label }}" class="col-sm-2 col-form-label">Job Description:</label>
+              <div class="col-sm-10">
+                <textarea name="{{ form.job_description.name }}" cols="40" rows="5" maxlength="500" required="" id="{{ form.job_description.id_for_label }}"></textarea>
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="{{ form.equipment.id_for_label }}" class="col-sm-2 col-form-label">Equipment:</label>
+              <div class="col-sm-10">
+                {{ form.equipment }}
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="{{ form.job_category.id_for_label }}" class="col-sm-2 col-form-label">Job Category:</label>
+              <div class="col-sm-10">
+                {{ form.job_category }}
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="{{ form.job_status.id_for_label }}" class="col-sm-2 col-form-label">Job Status:</label>
+              <div class="col-sm-10">
+                {{ form.job_status }}
+              </div>
+            </div>
+
+            <div class="mb-3 row">
+              <label for="{{ form.personnel.id_for_label }}" class="col-sm-2 col-form-label">Personnel:</label>
+              <div class="col-sm-10">
+                {{ form.personnel }}
+              </div>
+            </div>
+
+            <!-- <div class="mb-3 row">
+              <label for="{{ form.personnel.id_for_label }}" class="col-sm-2 col-form-label">Personnel:</label>
+              <div class="col-sm-10">
+                  {% for personnel_checkbox in form.personnel %}
+                      <div class="form-check">
+                          {{ personnel_checkbox }}
+                          <label class="form-check-label" for="{{ personnel_checkbox.id_for_label }}">
+                              {{ personnel_checkbox.choice_label }}
+                          </label>
+                      </div>
+                  {% endfor %}
+              </div>
+          </div> -->
+
+            <div class="mb-3 row">
+              <label for="{{ form.remarks.id_for_label }}" class="col-sm-2 col-form-label">Remarks:</label>
+              <div class="col-sm-10">
+                {{ form.remarks }}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-2"></div>
+              <div class="col-md-10 right-align-button">
+                  <button type="submit" class="btn btn-primary">Submit Job Entry</button>
+                  <!-- Save and Add Another Entry button -->
+    {% if save_and_add_another %}
+    <button type="submit" name="save_and_add_another" class="btn btn-success">Save and Add Another Entry</button>
+{% endif %}
+</form>
+
+              </div>
+          </div>
+          
+          
+          
+
+          </form>
+
+          <div class="list-group">
+            <h1 class="h1 mt-4 mb-4 list-group-item list-group-item-light"></h1>
+          </div >
+
+{% endblock %}

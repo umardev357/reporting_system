@@ -1,0 +1,47 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+
+<p></p>
+  <!--<h2>P&C Reporting System</h2>-->
+  <div class="list-group ">
+    <h1 class="h3 mt-4 mb-4 list-group-item list-group-item-primary ">Quick Guide to Reporting System</h1>
+  </div >
+
+  <p>Here's a quick guide on how to use this webApp to create a container for a month and jobs</p>
+  <p>
+    <ol>
+      <li>Creating a Monthly Report Folder:
+        <ol type="I" >
+          <li>Navigate to the "Create Monthly Report Folder" page.</li>
+          <li>Select the year and month for the folder.</li>
+          <li>Click the "Create Folder" button.</li>
+        </ol>
+      </li>
+    <p></p>
+      <li>Creating Jobs for the Month:
+        <ol type="I">
+          
+          <li>Navigate to the "Create Job" page.</li>
+          <li>Fill in the details for the job, such as title, date, category, etc.</li>
+          <li>The job is automatically saved in the Monthly Report Folder based on the date the job was carried out.</li>
+          <li>Click "Submit Job" button</li>
+        </ol>
+      </li>
+  <p></p>
+      <li>Viewing Monthly Reports:
+        <ol type="I">
+          <li>Go to the "Monthly Report Folders" page.</li>
+          <li>Click on the specific Monthly Report Folder you want to view.</li>
+          <li>You should see details about the month and a list of jobs associated with that month.</li>
+        </ol>
+      </li>
+    </ol>
+  </p>
+    
+      <p>
+        You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.
+      </p>
+{% endblock %}
+
+

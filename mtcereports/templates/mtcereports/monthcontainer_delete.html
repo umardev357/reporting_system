@@ -1,0 +1,20 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+  <h1>Title: {{ job.title }}</h1>
+
+  <p><strong>Decription:</strong> {{ job.job_description }}</p>
+
+  <p>
+    <div style="margin-top: 50px">
+      <a href="{% url 'mon-update' job.id %}">Update {{job.title}} details </a>
+    </div>
+  </p>
+    
+    <p>
+      <div style="margin-top: 50px">
+        <a href="{% url 'monthcontainer-delete' job.id %}">Delete {{job.title}} details </a>
+      </div>
+    </p>
+    {{job.title}}
+{% endblock %}

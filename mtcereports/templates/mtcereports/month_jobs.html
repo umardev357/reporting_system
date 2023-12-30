@@ -1,0 +1,49 @@
+<!-- monthly_jobs.html -->
+
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>{{ month }} {{ year }} Report</h1>
+
+    {% if job_list %}
+        <ul>
+            {% for job in job_list %}
+                <li>{{ job.title }}</li>
+                <!-- Display other job details as needed -->
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No jobs found for this month/year.</p>
+    {% endif %}
+
+    {% load render_table from django_tables2 %}
+<!doctype html>
+<html>
+    <head>
+        
+    </head>
+    <body>
+        {% render_table table %}
+    </body>
+</html>
+
+{% endblock %}
+
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+    <h1>All Jobs</h1>
+
+    {% if job_list %}
+      <ul>
+
+        {% for job in job_list %}
+          <li><a href = "{{ job.get_absolute_url }}"> {{ job.title  }} </a> {{ job.author }} </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>There are no books borrowed.</p>
+    {% endif %}
+
+{% endblock %}

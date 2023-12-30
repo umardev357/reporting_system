@@ -1,0 +1,35 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="container">
+      <div class="list-group">
+          <h1 class="h3 mt-4 mb-4 list-group-item list-group-item-primary ">Regional Monthly Reports</h1>
+      </div>
+  
+        {% if monthcontainer_list %}
+        <div class="list-group">
+          {% for monthcontainer in monthcontainer_list %}
+          <div class="list-group-item d-flex align-items-center">
+
+<a href="{% url 'all-month-jobs' year=monthcontainer.year_name month=monthcontainer.month_name author=monthcontainer.author.username %}"
+class="p-2 flex-grow-1 bd-highlight list-group-item-action list-group-item-primary rounded text-dark text-bold" style="text-decoration:none" >  
+<span><span class="badge bg-primary p-2 bd-highlight">{{ monthcontainer.author }}</span> {{ monthcontainer.get_month_name_display }} {{ monthcontainer.year_name }} Report</span>
+</a>
+
+                    
+        </div>
+      {% endfor %}
+        </div>
+        {% else %}
+            <p class="lead">There are no monthly report containers created.</p>
+        {% endif %}
+
+        {% if messages %}
+            <ul class="messages list-unstyled">
+                {% for message in messages %}
+                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="container">
+        <div class="list-group">
+            <h1 class="h3 mt-4 mb-4 list-group-item list-group-item-primary">My Jobs</h1>
+        </div>
+
+        {% if messages %}
+            <div class="alert alert-dismissible fade show" role="alert">
+                <ul class="list-unstyled">
+                    {% for message in messages %}
+                        <li {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+
+        {% if job_list %}
+            {% load render_table from django_tables2 %}
+            {% render_table table %}
+        {% else %}
+            <p class="lead">There are no job entries created by {{ user.first_name}} {{ user.last_name}}.</p>
+        {% endif %}
+
+    </div>
+{% endblock %}
