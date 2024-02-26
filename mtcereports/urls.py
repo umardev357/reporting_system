@@ -1,6 +1,7 @@
 
 from django.urls import path
 from .views import CombinedMonthJobsView, CombinedMonthJobsExportView
+from .views import PersonnelAutocomplete
 
 from . import views
 
@@ -28,6 +29,7 @@ urlpatterns = [
     path('allmonthjobs/<int:year>/<int:month>/<str:author>/', views.AllMonthJobsView.as_view(), name='all-month-jobs'),
     path('mymonthjobs/<int:year>/<int:month>/', views.MyMonthJobsView.as_view(), name='my-month-jobs'),
     path('monthcontainer/<int:pk>/delete/', views.MonthContainerDelete.as_view(), name='monthcontainer-delete'),
-
+    path('personnel-autocomplete/', PersonnelAutocomplete.as_view(), name='personnel-autocomplete'),
 ]
+
 

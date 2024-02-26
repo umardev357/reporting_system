@@ -30,6 +30,12 @@
                       max-width: 100%; /* Full width on smaller screens */
                   }
               }
+
+              .personnel-columns {
+                  column-count: 3; /* Adjust the number of columns as needed */
+                  column-gap: 20px; /* Adjust the gap between columns as needed */
+              }
+
           </style>
           
           
@@ -39,18 +45,20 @@
                   {{ form.date }}
               </div>
           </div>
+        
       
-          <script>
-              document.addEventListener("DOMContentLoaded", function () {
-                  var dateInputs = document.querySelectorAll('.datepicker');
-                  dateInputs.forEach(function (input) {
-                      new Datepicker(input, {
-                          format: 'yyyy-mm-dd',
-                          autoclose: true,
-                      });
-                  });
-              });
-          </script>
+          <!--<script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var dateInputs = document.querySelectorAll('.datepicker');
+                dateInputs.forEach(function (input) {
+                    new Datepicker(input, {
+                        format: 'yyyy-mm-dd',
+                        autoclose: true,
+                        endDate: '0d' // Set startDate to today's date
+                    });
+                });
+            });
+        </script>-->
 
             <div class="mb-3 row">
               <label for="{{ form.region.id_for_label }}" class="col-sm-2 col-form-label">Region:</label>
@@ -85,8 +93,8 @@
               <div class="col-sm-10">
                 {{ form.job_category }}
               </div>
-            </div>
-
+            </div>  
+ 
             <div class="mb-3 row">
               <label for="{{ form.job_status.id_for_label }}" class="col-sm-2 col-form-label">Job Status:</label>
               <div class="col-sm-10">
@@ -94,12 +102,20 @@
               </div>
             </div>
 
-            <div class="mb-3 row">
+            <!--<div class="mb-3 row">
               <label for="{{ form.personnel.id_for_label }}" class="col-sm-2 col-form-label">Personnel:</label>
               <div class="col-sm-10">
                 {{ form.personnel }}
               </div>
+            </div>-->
+
+            <div class="mb-3 row">
+              <label for="{{ form.personnel.id_for_label }}" class="col-sm-2 col-form-label">Personnel:</label>
+              <div class="col-sm-10 personnel-columns">
+                  {{ form.personnel }}
+              </div>
             </div>
+          
 
             <!-- <div class="mb-3 row">
               <label for="{{ form.personnel.id_for_label }}" class="col-sm-2 col-form-label">Personnel:</label>
@@ -130,18 +146,17 @@
     {% if save_and_add_another %}
     <button type="submit" name="save_and_add_another" class="btn btn-success">Save and Add Another Entry</button>
 {% endif %}
+</div>
+
+
+
 </form>
+   
 
-              </div>
-          </div>
-          
-          
-          
-
-          </form>
-
-          <div class="list-group">
-            <h1 class="h1 mt-4 mb-4 list-group-item list-group-item-light"></h1>
-          </div >
+<div class="list-group">
+  <h1 class="h1 mt-4 mb-4 list-group-item list-group-item-light"></h1>
+</div >
+      
+        
 
 {% endblock %}

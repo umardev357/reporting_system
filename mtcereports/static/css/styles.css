@@ -39,3 +39,9 @@
       max-width: 100%; /* Full width on smaller screens */
   }
 }
+
+.personnel-columns {
+  column-count: 3; /* Adjust the number of columns as needed */
+  column-gap: 20px; /* Adjust the gap between columns as needed */
+}
+

@@ -1,4 +1,6 @@
 
+from django.utils import timezone
+
 
 from django.db.models import Max
 from django_tables2.export.views import ExportMixin
@@ -28,6 +30,7 @@ from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import PermissionRequiredMixin, LoginRequiredMixin
 
 from .models import Job, Personnel, Equipment, JobCategory, Substation, MonthContainer
+
 # Create your views here.
 
 @login_required
@@ -116,9 +119,10 @@ class JobCreateForm(forms.ModelForm):
         model = Job
         exclude = ['author']
         widgets = {
-                'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control'}),
-            }
+            'date': forms.DateInput(attrs={'type': 'date', 'class': 'form-control', 'max': timezone.now().strftime('%Y-%m-%d')}),
+        }
 
+    
 '''class JobCreate(LoginRequiredMixin, CreateView):
     """View function for creating a new job"""
     #permission_required = 'catalog.can_mark_returned'
@@ -322,19 +326,33 @@ class CombinedMonthJobsView(LoginRequiredMixin, ExportMixin, SingleTableView, ge
         month = int(self.kwargs['month'])
         return Job.objects.filter(date__year=year, date__month=month)
 
+    MONTH_NAMES = {
+        '1': 'January',
+        '2': 'February',
+        '3': 'March',
+        '4': 'April',
+        '5': 'May',
+        '6': 'June',
+        '7': 'July',
+        '8': 'August',
+        '9': 'September',
+        '10': 'October',
+        '11': 'November',
+        '12': 'December',
+    }
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         year = self.kwargs['year']
         month = self.kwargs['month']
-        name_of_month = month_name[int(month)]
+        month_string = str(self.kwargs['month'])
+        month_name = self.MONTH_NAMES.get(month_string, '')  # Get month name from dictionary
         context['year'] = year
         context['month'] = month
+        context['month_name'] = month_name  # Pass month name to template
         return context
 
-
 import tablib
-
-
 
 class CombinedMonthJobsExportView(View):
     def get(self, request, year, month):
@@ -343,16 +361,34 @@ class CombinedMonthJobsExportView(View):
 
         jobs = Job.objects.filter(date__year=year, date__month=month)
 
+        # Function to map region choices
+        def get_region_display(region):
+            return dict(Job.REGIONS).get(region)
+
+        # Function to map job status choices
+        def get_job_status_display(status):
+            return dict(Job.JOBSTATUS).get(status)
+
         dataset = tablib.Dataset()
-        dataset.headers = ['Title', 'Author', 'Date', 'Region', '...']
+        dataset.headers = ['Date', 'Title','Region', 'Substation', 'Activity', 'Workdone', 'Remarks', 'Status', 'Equipment', 'Personnel' ]
 
         for job in jobs:
-            dataset.append([job.title, job.author, job.date, job.region, '...'])
+            # Map region choice
+            region_display = get_region_display(job.region)
+            # Map job status choice
+            job_status_display = get_job_status_display(job.job_status)
+            
+            # Serialize personnel names
+            personnel_names = ', '.join([personnel.first_name for personnel in job.personnel.all()])
+
+            dataset.append([job.date, job.title, region_display, job.substation, job.job_category,
+                            job.job_description, job.remarks, job_status_display, job.equipment, personnel_names])
 
         response = HttpResponse(dataset.xlsx, content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
         response['Content-Disposition'] = f'attachment; filename=combined_month_jobs_{year}_{month}.xlsx'
 
         return response
+
 
 
 
@@ -419,4 +455,15 @@ class MonthContainerDelete(LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('my-monthcontainer-list') 
 
 
+from dal import autocomplete
+from .models import Personnel
+
+class PersonnelAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        qs = Personnel.objects.all()
+
+        if self.q:
+            qs = qs.filter(first_name__icontains=self.q) | qs.filter(last_name__icontains=self.q)
+
+        return qs
 

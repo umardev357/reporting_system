@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container">
     <div class="list-group">
-        <h1 class="h3 mt-4 mb-4 list-group-item list-group-item-primary">Update Job Entry</h1>
+        <h1 class="h3 mt-4 mb-4 list-group-item list-group-item-primary">Edit Job Entry</h1>
     </div>
 
     <form method="post">
@@ -28,6 +28,12 @@
                 div.mb-3.row .datepicker {
                     max-width: 100%; /* Full width on smaller screens */
                 }
+                
+            }
+
+            .personnel-columns {
+                  column-count: 3; /* Adjust the number of columns as needed */
+                  column-gap: 20px; /* Adjust the gap between columns as needed */
             }
         </style>
         
@@ -95,7 +101,7 @@
 
           <div class="mb-3 row">
             <label for="{{ form.personnel.id_for_label }}" class="col-sm-2 col-form-label">Personnel:</label>
-            <div class="col-sm-10">
+            <div class="col-sm-10 personnel-columns">
               {{ form.personnel }}
             </div>
           </div>
@@ -112,8 +118,8 @@
         
         
         <div class="d-flex gap-2" style="margin-top: 50px">
-            <button class="btn btn-primary" type="submit">Update Job</button>
-            <a href="{% url 'job-detail' pk=object.pk %}" class="btn btn-danger">Cancel</a>
+            <button class="btn btn-primary" type="submit">Confirm Changes</button>
+            <a href="{% url 'job-detail' pk=object.pk %}" class="btn btn-danger">Cancel Changes</a>
           </div>
         </form>
 
