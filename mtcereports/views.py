@@ -452,18 +452,4 @@ class MonthContainerDelete(LoginRequiredMixin, DeleteView):
     """View to allow a user delete a job already added"""
     #permission_required = 'catalog.can_mark_returned'
     model = MonthContainer
-    success_url = reverse_lazy('my-monthcontainer-list') 
-
-
-from dal import autocomplete
-from .models import Personnel
-
-class PersonnelAutocomplete(autocomplete.Select2QuerySetView):
-    def get_queryset(self):
-        qs = Personnel.objects.all()
-
-        if self.q:
-            qs = qs.filter(first_name__icontains=self.q) | qs.filter(last_name__icontains=self.q)
-
-        return qs
-
+    success_url = reverse_lazy('my-monthcontainer-list')
