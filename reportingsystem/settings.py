@@ -38,8 +38,6 @@ ALLOWED_HOSTS = ['web-production-4c6e.up.railway.app', '127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-    'dal',
-    'dal_select2',
     'import_export',
     'django_tables2',
     'mtcereports.apps.MtcereportsConfig',
