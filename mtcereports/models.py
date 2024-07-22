@@ -28,9 +28,11 @@ class Job(models.Model):
     date = models.DateField(null=True)
 
     REGIONS = (
+        ('a', 'Accra'),
         ('ae', 'Accra East'),
         ('aw', 'Accra West'),
         ('v', 'Volta'),
+        ('as', 'Ashanti'),
         ('ase', 'Ashanti East'),
         ('asw', 'Ashanti West'),
         ('ass', 'Ashanti South'),
@@ -104,7 +106,7 @@ class Substation(models.Model):
     """Model representing a substation"""
     name = models.CharField(max_length = 200,)
     
-    station_code = models.CharField(max_length = 10,)
+    station_code = models.CharField(max_length = 50,)
 
     region = models.CharField(
         max_length = 3,
